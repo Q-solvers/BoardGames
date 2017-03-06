@@ -1,0 +1,18 @@
+<!-- $Id: ShowError.tml 120 2009-09-25 14:36:00Z iskakoff $ -->
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+	<t:if test="inError">
+		<div class="error">
+			<table>
+				<tr>
+                    <td>
+                        <img src="${error}" width="30" height="30"
+							alt="Error" border="0" vspace="10"/>
+                    </td>
+                    <td>
+						${firstError}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</t:if>
+</span>

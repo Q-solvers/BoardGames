@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: applicationContext.xml 112 2009-09-11 04:50:48Z iskakoff $ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+    <!-- model services -->
+
+    <bean id="userService" class="org.a2union.gamesystem.model.user.TestingUserService">
+        <property name="userDAO" ref="userDAO"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+        <property name="gameService" ref="gameService"/>
+    </bean>
+
+</beans>

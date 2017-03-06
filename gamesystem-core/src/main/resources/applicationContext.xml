@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: applicationContext.xml 201 2010-10-15 15:11:11Z iskakoff $ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/gameportal"/>
+        <property name="username" value="gameportal"/>
+        <property name="password" value="gameportal"/>
+    </bean>
+
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>org.a2union.gamesystem.model.user.User</value>
+                <value>org.a2union.gamesystem.model.user.passreminder.PassReminder</value>
+                <value>org.a2union.gamesystem.model.user.rate.Rate</value>
+                <value>org.a2union.gamesystem.model.news.Article</value>
+                <value>org.a2union.gamesystem.model.activation.Activation</value>
+                <value>org.a2union.gamesystem.model.game.GameBase</value>
+                <value>org.a2union.gamesystem.model.game.zone.GameZone</value>
+                <value>org.a2union.gamesystem.model.game.step.Step</value>
+                <value>org.a2union.gamesystem.model.game.side.GameSide</value>
+                <value>org.a2union.gamesystem.model.game.invitation.GameInvitation</value>
+                <value>org.a2union.gamesystem.model.game.tournament.Match</value>
+                <value>org.a2union.gamesystem.model.game.tournament.Participant</value>
+                <value>org.a2union.gamesystem.model.game.tournament.Tournament</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.generate_statistics">false</prop>
+                <!--prop key="transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</prop -->
+            </props>
+        </property>
+    </bean>
+
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- model services -->
+
+    <bean id="userService" class="org.a2union.gamesystem.model.user.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+        <property name="gameService" ref="gameService"/>
+        <property name="rateDAO" ref="rateDAO"/>
+        <property name="onlineUserRegistry" ref="onlineUserRegistry"/>
+        <property name="passDAO" ref="passDAO"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="templateMessage" ref="templateMessage"/>
+        <property name="notificationResolver" ref="notificationResolver"/>
+    </bean>
+
+    <bean id="newsService" class="org.a2union.gamesystem.model.news.NewsService">
+        <property name="newsDAO" ref="newsDAO"/>
+    </bean>
+
+    <bean id="activationService" class="org.a2union.gamesystem.model.activation.ActivationService">
+        <property name="activationDAO" ref="activationDAO"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="templateMessage" ref="templateMessage"/>
+        <property name="notificationResolver" ref="notificationResolver"/>
+    </bean>
+
+    <bean id="gameService" class="org.a2union.gamesystem.model.game.GameService">
+        <property name="gameZoneDAO" ref="gameZoneDAO"/>
+        <property name="gameDAO" ref="gameDAO"/>
+        <property name="userService" ref="userService"/>
+        <property name="notificationResolver" ref="notificationResolver"/>
+    </bean>
+
+    <bean id="chessGameService" class="org.a2union.gamesystem.model.game.chess.ChessGameService" parent="gameService"/>
+    <bean id="reversiGameService" class="org.a2union.gamesystem.model.game.reversi.ReversiGameService"
+          parent="gameService"/>
+
+    <bean id="gameInvitationService" class="org.a2union.gamesystem.model.game.invitation.GameInvitationService">
+        <property name="gameInvitationDAO" ref="gameInvitationDAO"/>
+        <property name="userService" ref="userService"/>
+        <property name="gameService" ref="gameService"/>
+        <property name="notificationResolver" ref="notificationResolver"/>
+    </bean>
+
+    <bean id="tournamentService" class="org.a2union.gamesystem.model.game.tournament.TournamentService"/>
+    <!-- DAO Objects -->
+
+    <bean id="baseDAO" abstract="true" class="org.a2union.gamesystem.model.base.BaseDAO">
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+
+    <bean id="userDAO" class="org.a2union.gamesystem.model.user.UserDAO" parent="baseDAO"/>
+    <bean id="passDAO" class="org.a2union.gamesystem.model.user.passreminder.PassReminderDAO" parent="baseDAO"/>
+    <bean id="rateDAO" class="org.a2union.gamesystem.model.user.rate.RateDAO" parent="baseDAO"/>
+    <bean id="newsDAO" class="org.a2union.gamesystem.model.news.NewsDAO" parent="baseDAO"/>
+    <bean id="activationDAO" class="org.a2union.gamesystem.model.activation.ActivationDAO" parent="baseDAO"/>
+    <bean id="gameZoneDAO" class="org.a2union.gamesystem.model.game.zone.GameZoneDAO" parent="baseDAO"
+          init-method="init"/>
+    <bean id="gameDAO" class="org.a2union.gamesystem.model.game.GameDAO" parent="baseDAO"/>
+    <bean id="gameInvitationDAO" class="org.a2union.gamesystem.model.game.invitation.GameInvitationDAO"
+          parent="baseDAO"/>
+    <bean id="tournamentDAO" class="org.a2union.gamesystem.model.game.tournament.TournamentDAO" parent="baseDAO"/>
+
+    <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.Md5PasswordEncoder">
+        <property name="encodeHashAsBase64" value="true"/>
+    </bean>
+    <!-- Scheduler properties -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="activationTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="activationTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="mailNotifierJob"/>
+        <property name="cronExpression" value="0 0/1 * * * ?"/>
+    </bean>
+
+    <bean id="mailNotifierJob" class="org.a2union.gamesystem.commons.ActivationJobDetailBean">
+        <property name="activationService" ref="activationService"/>
+        <property name="jobClass" value="org.a2union.gamesystem.commons.ActivationJob"/>
+    </bean>
+
+    <bean id="movementNotifierJob" class="org.springframework.scheduling.quartz.JobDetailBean" scope="prototype">
+        <!--<property name="ma" ref="activationService" />-->
+        <property name="jobClass" value="org.a2union.gamesystem.commons.MovementJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="mailer" value-ref="mailSender"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Mail server properties -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="localhost"/>
+        <property name="port" value="587"/>
+        <property name="username" value="boardgame-admin"/>
+        <property name="password" value="sSOwmJXm"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.host">localhost</prop>
+                <prop key="mail.smtp.port">587</prop>
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="boardgame-admin@mind-games.ru"/>
+        <property name="subject" value="Mind-games.ru notfication service"/>
+    </bean>
+
+    <bean id="notificationResolver" class="org.a2union.gamesystem.commons.NotificationResolver">
+        <property name="messageSource" ref="messageSource"/>
+        <property name="templateMessage" ref="templateMessage"/>
+        <property name="scheduler" ref="scheduler"/>
+        <property name="movementNotifierJob" ref="movementNotifierJob"/>
+    </bean>
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>notifications</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="onlineUserRegistry" class="org.a2union.gamesystem.model.user.OnlineUserRegistryImpl"/>
+</beans>

@@ -1,0 +1,31 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="loginform">
+    <form action="${loginCheckUrl}" method="POST" class="loginform">
+        <table border="0" cellspacing="1" cellpadding="0" align="center">
+            <tr>
+                <td colspan="2" class="error"><t:if test="failed">${message:loginerror}<br/></t:if></td>
+            </tr>
+            <tr>
+                <td align="center"><input class="username" name="j_username" id="j_username" type="text" size="30"
+                                        maxlength="30"/></td>
+            </tr>
+            <tr>
+                <td align="center"><input class="password" name="j_password" id="j_password" type="password" size="30"
+                                        maxlength="30"/></td>
+            </tr>
+            <tr>
+                <td align="center"><br/>
+                    <input id="submit" class="submit" type="submit" value="${message:login-button}"/></td>
+            </tr>
+        </table>
+    </form>
+    <span t:id="forgotPass" title="${message:forgotPass}" style="font-size: 9px;">
+        <table cellpadding="1" cellspacing="0" border="0" width="100%" style="border-style: none;">
+            <tr>
+                <td width="30%" style="text-align:right;"><t:label for="emailF"/>:</td>
+                <td style="text-align:left;"><t:textfield t:id="emailF" t:value="email" style="width:80%;" maxlength="50" validate="required"/></td>
+            </tr>
+        </table>
+    </span>
+    <t:pagelink t:page="Register">${message:register-page}</t:pagelink><br/>
+    <t:pagelink t:page="Main">${message:main-page}</t:pagelink>
+</div>

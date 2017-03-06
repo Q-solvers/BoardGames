@@ -1,0 +1,7 @@
+<!-- $Id: ChessGame.tml 159 2009-12-26 03:07:07Z iskakoff $ -->
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+<div id="boardBlock" style="visibility:visible;">
+    <t:reversi.reversiboard game="game"/>
+</div>
+<div style="clear: both;"> </div>
+</html>

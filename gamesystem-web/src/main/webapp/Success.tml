@@ -1,0 +1,6 @@
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:if test="msgCode">
+        <h4>${msg}</h4>
+        <p>${msgFull}</p>
+    </t:if>
+</html>

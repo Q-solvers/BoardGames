@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: applicationContext-security.xml 205 2010-10-15 18:53:56Z iskakoff $ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+
+    <security:http entry-point-ref="myEntryPoint">
+        <security:intercept-url pattern="/main*" filters="none" requires-channel="https"/>
+        <security:intercept-url pattern="/main/*" filters="none" requires-channel="https"/>
+        <security:intercept-url pattern="/rules*" filters="none" />
+        <security:intercept-url pattern="/rules/**" filters="none" />
+        <security:intercept-url pattern="/css**" filters="none"/>
+        <security:intercept-url pattern="/js/fix-ie.js" filters="none"/>
+        <security:intercept-url pattern="/images/*" filters="none"/>
+        <security:intercept-url pattern="/success**" filters="none"/>
+        <security:intercept-url pattern="/assets/org/a2union*" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/assets/org/a2union/**" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/assets/ctx**" filters="none"/>
+        <security:intercept-url pattern="/assets/tapestry**" filters="none"/>
+        <security:intercept-url pattern="/assets/scriptaculous**" filters="none"/>
+        <security:intercept-url pattern="/assets/componentslib**" filters="none"/>
+        <security:intercept-url pattern="/assets/ctx/**" filters="none"/>
+        <security:intercept-url pattern="/assets/tapestry/**" filters="none"/>
+        <security:intercept-url pattern="/assets/componentslib/**" filters="none"/>
+        <security:intercept-url pattern="/assets/scriptaculous/**" filters="none"/>
+        <security:intercept-url pattern="/register**" access="ROLE_ANONYMOUS"/>
+        <security:intercept-url pattern="/activation/**" access="ROLE_ANONYMOUS"/>
+        <security:intercept-url pattern="/reminder**" access="ROLE_ANONYMOUS"/>
+        <security:intercept-url pattern="/reminder/**" access="ROLE_ANONYMOUS"/>
+        <security:intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN"/>
+        <security:intercept-url pattern="/index**" access="ROLE_USER,ROLE_ADMIN"/>
+        <security:intercept-url pattern="/addperson**" access="ROLE_USER,ROLE_ADMIN"/>
+        <security:intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN"/>
+
+        <!--<security:form-login login-page="/main" default-target-url="/index" always-use-default-target="false"  />-->
+        <security:anonymous/>
+        <security:logout/>
+        <security:port-mappings>
+            <security:port-mapping http="8090" https="8443"/>
+        </security:port-mappings>
+        <security:concurrent-session-control max-sessions="1"/>
+    </security:http>
+    <bean id="myFilter" class="org.a2union.gamesystem.security.authentication.CustomAuthenticationProcessingFilter">
+        <security:custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationFailureUrl" value="/main?error=1" />
+        <property name="defaultTargetUrl" value="/" />
+        <property name="serverSideRedirect" value="false" />
+        <property name="sessionRegistry" ref="_sessionRegistry" />
+        <property name="alwaysUseDefaultTargetUrl" value="false" />
+        <property name="migrateInvalidatedSessionAttributes" value="false" />
+    </bean>
+
+    <bean id="myEntryPoint" class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint" >
+        <property name="forceHttps" value="false"/>
+        <property name="loginFormUrl" value="/main" />
+    </bean>
+
+    <security:authentication-manager alias="authenticationManager"/>
+
+    <bean id="userDetailsService" class="org.a2union.gamesystem.security.authentication.UserDetailService" >
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+    <bean id="daoAuthenticationProvider"
+                class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+        <security:custom-authentication-provider/>
+    </bean>
+
+    <!--              CAPTCHA CONFIURATION                 -->
+    <bean id="captchaEngine" class="com.octo.captcha.engine.GenericCaptchaEngine">
+        <constructor-arg index="0">
+            <list>
+                <ref bean="imageCaptchaFactory"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="captchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+        <property name="captchaEngine" ref="captchaEngine"/>
+    </bean>
+    <bean id="captchaIntegrationService" class="org.a2union.gamesystem.security.captcha.CaptchaIntegrationService">
+        <property name="captchaService" ref="captchaService"/>
+    </bean>
+    <bean id="imageCaptchaFactory" class="com.octo.captcha.image.gimpy.GimpyFactory">
+        <constructor-arg index="0" ref="wordgen"/>
+        <constructor-arg index="1" ref="wordtoimage"/>
+    </bean>
+    <!-- uppercase letter is used for generated captcha  -->
+    <bean id="wordgen" class="com.octo.captcha.component.word.wordgenerator.RandomWordGenerator">
+        <constructor-arg value="ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
+    </bean>
+    <!-- captcha generator parameters -->
+    <bean id="wordtoimage" class="com.octo.captcha.component.image.wordtoimage.DeformedComposedWordToImage">
+        <!-- font of captcha -->
+        <constructor-arg index="0" ref="fontGenerator"/>
+        <!-- captcha background -->
+        <constructor-arg index="1" ref="backgroundGenerator"/>
+        <!-- captcha text generator -->
+        <constructor-arg index="2" ref="textPaster"/>
+        <constructor-arg index="3" ref="none"/>
+        <constructor-arg index="4" ref="none"/>
+        <!-- captcha text deformation type -->
+        <constructor-arg index="5" ref="ripple3Def"/>
+    </bean>
+    <!-- Arial font-family, default font-style, font-size is 10 -->
+    <bean id="fontArial" class="java.awt.Font">
+        <constructor-arg index="0" value="Arial"/>
+        <constructor-arg index="1" value="0"/>
+        <constructor-arg index="2" value="10"/>
+    </bean>
+    <!-- image font generator setup -->
+    <bean id="fontGenerator" class="com.octo.captcha.component.image.fontgenerator.RandomFontGenerator">
+        <!-- minimum font-size -->
+        <constructor-arg index="0" value="18"/>
+        <!-- maximum font-size -->
+        <constructor-arg index="1" value="22"/>
+        <!-- setup font-family -->
+        <constructor-arg index="2">
+            <list>
+                <ref bean="fontArial"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!-- captcha background -->
+    <bean id="backgroundGenerator"
+          class="com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator">
+        <!-- background size 120x60 -->
+        <constructor-arg index="0" value="120"/>
+        <constructor-arg index="1" value="60"/>
+    </bean>
+    <!-- configure text generator -->
+    <bean id="textPaster" class="com.octo.captcha.component.image.textpaster.RandomTextPaster">
+        <!-- minimum and maximum word size is 7 -->
+        <constructor-arg index="0" type="java.lang.Integer" value="7"/>
+        <constructor-arg index="1" type="java.lang.Integer" value="7"/>
+        <!-- word color is black -->
+        <constructor-arg index="2" type="java.awt.Color" ref="blackColor"/>
+    </bean>
+    <!-- setup black color -->
+    <bean id="blackColor" class="java.awt.Color">
+        <constructor-arg index="0" type="int" value="0"/>
+        <constructor-arg index="1" type="int" value="0"/>
+        <constructor-arg index="2" type="int" value="0"/>
+    </bean>
+    <!--  -->
+    <bean id="weaves" class="com.jhlabs.image.WeaveFilter">
+        <property name="useImageColors" value="true"/>
+        <property name="XGap" value="2"/>
+        <property name="XWidth" value="10"/>
+        <property name="YWidth" value="16"/>
+        <property name="YGap" value="6"/>
+    </bean>
+    <!-- ripple image transformation filter -->
+    <bean id="ripple3" class="com.jhlabs.image.RippleFilter">
+        <!-- default wave type -->
+        <property name="waveType" value="5"/>
+        <!-- amplitude in X direction -->
+        <property name="XAmplitude" value="0"/>
+        <!-- amplitude in Y direction -->
+        <property name="YAmplitude" value="5"/>
+        <property name="XWavelength" value="10"/>
+        <property name="YWavelength" value="10"/>
+        <!-- clamp edge action is used -->
+        <property name="edgeAction" value="1"/>
+    </bean>
+    <!-- deformation according to filter -->
+    <bean id="weavesDef" class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+        <constructor-arg index="0">
+            <list>
+                <ref bean="weaves"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!-- deformation according to filter -->
+    <bean id="ripple3Def" class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+        <constructor-arg index="0">
+            <list>
+                <ref bean="ripple3"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!-- No-deformation filter -->
+    <bean id="none" class="com.octo.captcha.component.image.deformation.ImageDeformationByFilters">
+        <constructor-arg index="0">
+            <null/>
+        </constructor-arg>
+    </bean>
+</beans>

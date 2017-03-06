@@ -1,0 +1,46 @@
+<!-- $Id: ViewDetail.tml 179 2010-02-16 19:24:16Z iskakoff $ -->
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<div>
+    <fieldset>
+        <div>
+            <table cellpadding="1" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td width="50%">nameField:</td>
+                    <td>${person.login.username}</td>
+                </tr>
+                <tr>
+                    <td width="50%">emailField:</td>
+                    <td>${person.email}</td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    <form t:id="userEditForm">
+        <t:errors/>
+        <fieldset>
+            <div>
+                <table cellpadding="1" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td width="50%"><t:label for="movementField"/>:</td>
+                        <td><t:checkbox t:id="movementField" t:value="movement"/></td>
+                    </tr>
+                    <tr>
+                        <td width="50%"><t:label for="invitationField"/>:</td>
+                        <td><t:checkbox t:id="invitationField" t:value="invitation"/></td>
+                    </tr>
+                    <tr>
+                        <td width="50%"><t:label for="passwordField"/>:</td>
+                        <td><input t:id="passwordField" t:value="password"/></td>
+                    </tr>
+                    <tr>
+                        <td width="50%"><t:label for="passconfField"/>:</td>
+                        <td><input t:id="passconfField" t:value="passconf"/></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <br/>
+        <input type="submit" value="${message:submit}"/>
+    </form>
+</div>
+</html>

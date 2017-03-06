@@ -1,0 +1,68 @@
+<!-- $Id: pom.xml 139 2009-10-08 07:43:57Z iskakoff $ -->
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.a2union</groupId>
+  <artifactId>black-components</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Black Components Library</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.tapestry</groupId>
+      <artifactId>tapestry-core</artifactId>
+      <version>${tapestry-release-version}</version>
+    </dependency>
+
+    <!--<dependency>-->
+      <!--<groupId>org.testng</groupId>-->
+      <!--<artifactId>testng</artifactId>-->
+      <!--<version>5.1</version>-->
+      <!--<classifier>jdk15</classifier>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <optimize>true</optimize>
+        </configuration>
+      </plugin>
+
+      <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-jar-plugin</artifactId>
+           <configuration>
+           <archive>
+             <manifestEntries>
+               <Tapestry-Module-Classes>org.a2union.componentslib.services.BlackModule</Tapestry-Module-Classes>
+             </manifestEntries>
+           </archive>
+           </configuration>
+       </plugin>
+
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>codehaus.snapshots</id>
+      <url>http://snapshots.repository.codehaus.org</url>
+    </repository>
+    <repository>
+      <id>OpenQA_Release</id>
+      <name>OpenQA Release Repository</name>
+      <url>http://archiva.openqa.org/repository/releases/</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <tapestry-release-version>5.1.0.1</tapestry-release-version>
+  </properties>
+</project>

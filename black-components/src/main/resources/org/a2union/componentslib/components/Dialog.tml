@@ -1,0 +1,28 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+    <t:if test="link">
+        <t:if test="zone">
+            <t:actionlink t:id="dialogZoneAction" context="context" zone="${zone}">${title}</t:actionlink>
+            <p:else>
+                <t:actionlink t:id="dialogAction" context="context" >${title}</t:actionlink>
+            </p:else>
+        </t:if>
+        <p:else>
+            <t:delegate to="formBlock"/>
+        </p:else>
+    </t:if>
+    <t:block t:id="formBlock">
+        <div class="dialogbackground">
+        </div>
+        <div class="dialog">
+            <t:form t:id="dialogForm" context="cntx">
+                <t:errors/>
+                <t:body/>
+                <br/>
+                <input type="submit" value="Ok" />
+                <t:eventlink t:id="cancel">
+					<input type="button" class="button" value="Cancel" />
+				</t:eventlink>
+            </t:form>
+        </div>
+    </t:block>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="notificationResolver" class="org.a2union.gamesystem.commons.WebNotificationResolver" >
+        <property name="messageSource" ref="messageSource" />
+        <property name="url" value="${server-url}"/>
+        <property name="templateMessage" ref="templateMessage"/>
+        <property name="scheduler" ref="scheduler"/>
+        <property name="movementNotifierJob" ref="movementNotifierJob"/>
+    </bean>
+
+    <bean id="loginEventListener" class="org.a2union.gamesystem.event.LoginEventListener" >
+        <property name="sessionRegistry" ref="_sessionRegistry"/>
+    </bean>
+</beans>

@@ -1,0 +1,43 @@
+<!-- $Id: Index.tml 103 2009-09-07 15:00:36Z iskakoff $ -->
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+<div>
+    <t:zone t:id="dialogZone"></t:zone>
+    <div class="tab">
+        <span><img src="${players_tab_active}"/></span>
+    </div>
+</div>
+<t:delegate to="block"/>
+<t:block t:id="players">
+    <div class="gamelist">
+        <div class="gamelistheader">${message:players}</div>
+        <t:grid t:id="playersGrid" source="playersDS" row="player" include="UUID" rowsPerPage="10" pagerPosition="bottom" add="logo,rate,invite"
+                inPlace="true" style="width:100%;" reorder="logo,UUID">
+            <p:logoCell>
+                <img src="${logo}" alt="x"/>
+            </p:logoCell>
+            <p:UUIDCell>
+                <span>${player.login.username}</span>
+            </p:UUIDCell>
+            <p:rateCell>
+                <span>${rate}</span>
+            </p:rateCell>
+            <p:inviteCell>
+                <t:black.dialog t:id="inviteDialog" context="player.login.username" zone="dialogZone" title="${message:invite}">
+                    <table cellpadding="1" cellspacing="0" border="0" width="100%" style="border-style: none;">
+                        <tr>
+                            <td width="50%">
+                                <t:label for="type"/>:
+                            </td>
+                            <td>
+                                <t:select t:id="type"/>
+                            </td>
+                        </tr>
+                    </table>
+                </t:black.dialog>
+            </p:inviteCell>
+            <p:empty>
+            </p:empty>
+        </t:grid>
+    </div>
+</t:block>
+</html>

@@ -1,0 +1,6 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="newsblock">
+    <span class="contextheader"><b>${message:zone-header}</b></span>
+    <t:form t:id="zoneselect" style="padding: 5px;">
+        <t:select t:id="type" onchange="document.getElementById('zoneselect').submit();"/>
+    </t:form>
+</div>

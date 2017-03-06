@@ -1,0 +1,163 @@
+<!-- $Id: Index.tml 182 2010-02-19 21:10:27Z iskakoff $ -->
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+
+<div>
+    <div class="tab" style="float: left;">
+        <t:if test="b1">
+            <span><img src="${active_active}"/></span>
+            <p:else>
+                <t:pagelink t:id="activeGame" page="Index" context="0" ><img src="${active}"/></t:pagelink>
+            </p:else>
+        </t:if>
+    </div>
+    <div class="tab" style="float: left;">
+        <t:if test="b2">
+            <img src="${opened_active}"/>
+            <p:else>
+                <t:pagelink t:id="openGame" page="Index" context="1" ><img src="${opened}"/></t:pagelink>
+            </p:else>
+        </t:if>
+    </div>
+    <div class="tab" style="float: left;">
+        <t:if test="b3">
+            <img src="${mine_active}"/>
+            <p:else>
+                <t:pagelink t:id="myGame" page="Index" context="2" ><img src="${mine}"/></t:pagelink>
+            </p:else>
+        </t:if>
+    </div>
+    <div class="tab">
+        <t:if test="b4">
+            <span><img src="${invitations_active}"/></span>
+            <p:else>
+                <t:pagelink t:id="invitations" page="Index" context="3" ><img src="${invitations}"/></t:pagelink>
+            </p:else>
+        </t:if>
+    </div>
+</div>
+
+    <t:delegate to="activeBlock"/>
+    <t:block t:id="myGames">
+    <div class="gamelist">
+        <div class="gamelistheader">${message:mine-games}</div>
+        <t:pagelink t:page="CreateGame" style="font-size:11px;">${message:creategame-page}</t:pagelink>
+        <t:grid source="gamesOwnerDS" row="game" include="gameName,status" rowsPerPage="5"
+                pagerPosition="bottom" add="logo,side,laststep,enemy,delete" inPlace="true" style="width:100%;"
+                reorder="logo,gameName,side,laststep,enemy,status,delete">
+            <p:logoCell>
+                <t:if test="game.active">
+                    <img src="${stepLogo}" alt="${stepLogoDescr}" title="${stepLogoDescr}"/>
+                </t:if>
+            </p:logoCell>
+            <p:gameNameCell>
+                <t:if test="game.active">
+                    <!--<t:pagelink page="chess/chessgame" context="game.UUID">${game.gameName}</t:pagelink>-->
+                    <t:actionlink t:id="minegames" context="game.UUID">${game.gameName}</t:actionlink>
+                    <p:else>
+                        ${game.gameName}
+                    </p:else>
+                </t:if>
+            </p:gameNameCell>
+            <p:laststepCell>
+                ${laststep}
+            </p:laststepCell>
+            <p:sideCell>
+                ${side}
+            </p:sideCell>
+            <p:enemyCell>
+                ${enemy}
+            </p:enemyCell>
+            <p:deleteCell>
+                <t:actionlink t:id="delete" context="game.UUID"
+                              onclick="if(!confirm('${message:confirm-delete}')) return false;">
+                    <img src="${kill}" alt="x"/>
+                </t:actionlink>
+            </p:deleteCell>
+            <p:empty>
+            </p:empty>
+        </t:grid>
+    </div>
+    </t:block>
+
+    <t:block t:id="openGames">
+    <div class="gamelist">
+        <div class="gamelistheader">${message:open-games}</div>
+        <t:grid source="openGamesDS" row="game" include="gameName" rowsPerPage="5" pagerPosition="bottom"
+                add="freeside,accept" inPlace="true" style="width:100%;">
+            <p:gameNameCell>
+                <!--<t:pagelink page="chessgame" context="game.UUID">${game.gameName}</t:pagelink>-->
+                ${game.gameName}
+            </p:gameNameCell>
+            <p:freeSideCell>
+                ${freeSide}
+            </p:freeSideCell>
+            <p:acceptCell>
+                <t:actionlink t:id="acceptOpenGame" context="game.UUID"
+                              onclick="if(!confirm('${message:acceptgame-confirm}')) return false;">
+                    ${message:acceptgame}
+                </t:actionlink>
+            </p:acceptCell>
+            <p:empty>
+            </p:empty>
+        </t:grid>
+    </div>
+    </t:block>
+    <t:block t:id="activeGames">
+    <div class="gamelist">
+        <div class="gamelistheader">${message:active-games}</div>
+        <t:grid source="activeGamesDS" row="game" include="gameName" rowsPerPage="5" pagerPosition="bottom"
+                add="logo,side,laststep,enemy" reorder="logo,gameName,side,laststep,enemy" inPlace="true" style="width:100%;">
+            <p:logoCell>
+                <t:if test="game.active">
+                    <img src="${stepLogo}" alt="${stepLogoDescr}" title="${stepLogoDescr}"/>
+                </t:if>
+            </p:logoCell>
+            <p:gameNameCell>
+                <t:actionlink t:id="opengames" context="game.UUID">${game.gameName}</t:actionlink>
+            </p:gameNameCell>
+            <p:sideCell>
+                ${side}
+            </p:sideCell>
+            <p:laststepCell>
+                <t:if test="game.active">
+                    ${laststep}
+                </t:if>
+            </p:laststepCell>
+            <p:enemyCell>
+                ${enemy}
+            </p:enemyCell>
+            <p:empty>
+            </p:empty>
+        </t:grid>
+    </div>
+    </t:block>
+    <t:block t:id="gameInvitations">
+    <div class="gamelist">
+        <div class="gamelistheader">${message:invitations}</div>
+        <t:grid source="userInvitationsDS" row="gameInvitation" include="name"
+                rowsPerPage="5" pagerPosition="bottom" add="acceptI,declineI,side"  inPlace="true" style="width:100%;">
+            <p:nameCell>
+                <!--<t:pagelink page="chessgame" context="gameInvitation.UUID">${gameInvitation.name}</t:pagelink>-->
+                ${gameInvitation.name}
+            </p:nameCell>
+            <p:sideCell>
+                ${invitationSide}
+            </p:sideCell>
+            <p:acceptICell>
+                <t:actionlink t:id="acceptInvitation" context="gameInvitation.UUID"
+                              onclick="if(!confirm('${message:acceptinvitation-confirm}')) return false;">
+                    ${message:acceptinvitation}
+                </t:actionlink>
+            </p:acceptICell>
+            <p:declineICell>
+                <t:actionlink t:id="declineInvitation" context="gameInvitation.UUID"
+                              onclick="if(!confirm('${message:declineinvitation-confirm}')) return false;">
+                    ${message:declineinvitation}
+                </t:actionlink>
+            </p:declineICell>
+            <p:empty>
+            </p:empty>
+        </t:grid>
+    </div>
+    </t:block>
+</html>

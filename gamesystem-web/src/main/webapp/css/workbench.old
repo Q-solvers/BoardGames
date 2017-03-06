@@ -1,0 +1,176 @@
+BODY {
+  background-color: #FFFFFF;
+}
+TABLE.content {
+  border-width: 1;
+  border-color: burlywood;
+}
+TABLE.content TR, TD {
+  border-width: 1;
+    border-color: burlywood;
+}
+TABLE.content TR.title {
+    font-style:italic;
+    text-align:center;
+}
+TR.head TH {
+    background-color: #CCCCCC;
+    color: #000000;
+}
+
+
+TR.menu TH {
+    background-color: #DDDDDD;
+    color: #000000;
+}
+div.menu {
+   text-align: right;
+   padding-right: 20px;
+   padding-top: 5px;
+   font-size: 11px;
+}
+div.menu a {
+   font-size:11px;
+}
+td.header,div.header {
+  vertical-align:bottom;
+  padding-left: 40px;
+  padding-top: 30px;
+  padding-bottom: 15px;
+  border-bottom-color: #880000;
+  border-bottom-style: solid;
+}
+div.content {
+  height: 450px;
+}
+
+body {
+  margin:0px;
+  padding:0px;
+  font-family: Tahoma, verdana;
+  font-size:15px; color:#424242;
+  background-color:white;
+}
+img {
+  border: 0px none;
+}
+p {
+  text-indent: 10px;
+}
+a {
+  font-family:Tahoma;
+  font-size:15px;
+  color:#8c0000;
+  text-decoration:underline;
+}
+a:hover {
+  font-family:Tahoma;
+  font-size:15px;
+  color:#8c0000;
+  text-decoration:none;
+}
+.text {
+  text-align: center;
+  vertical-align: middle;
+}
+
+DIV.error  {
+    font-weight : bold;
+    color : Red;
+    border-bottom-color : Red;
+    border-bottom-style: solid;
+    padding : 4px;
+    width : 500px;
+    text-align : left;
+    border-width : 0px;
+}
+
+INPUT.error {
+  color: White;
+  background-color: Red;
+  font-weight: Bold;
+}
+
+
+SPAN.error  {
+    font-weight : bold;
+    color : Red;
+}
+
+
+SPAN.required-field
+{
+  font-weight: bold;
+  color: Red;
+}
+
+.fieldMissing {
+    background: #ffaaaa;
+}
+
+.loginform {
+    vertical-align: middle;
+    text-align: center;
+}
+.error {
+    color: red;
+}
+
+.loginform TD {
+    padding-bottom: 4px;
+    padding-left: 10px;
+}
+
+.fieldInvalid {
+    background: #ff9999;
+    font-weight: bold;
+}
+
+.alertButton {
+        width: auto;
+        border: none;
+        background-color: #699ED9;
+        color: #fff;
+        padding: 0.1em;
+        border-bottom: 1px solid #5885b6 !important;
+        border-right: 1px solid #5885b6 !important;
+        border-top: 1px solid #92b8e2 !important;
+        border-left: 1px solid #92b8e2 !important;
+        cursor: hand;
+        cursor: pointer;
+}
+
+.alertDialog {
+    width: 30em;
+    border: 2px solid #ff660a;
+    padding: 1em;
+    background: #ffffff;
+    -moz-border-radius: 10px;
+}
+
+.alertContent .alertButton {
+    float:right;
+    position:relative;
+    bottom:1em;
+}
+
+.missingList, .invalidList {
+    padding-bottom: 0.6em;
+    padding-top: 0.2em;
+    padding-left:0.1em;
+    padding-right:0.2em;
+    margin: 0;
+}
+
+.missingList {
+    border-top: 4px solid #bedef4;
+}
+
+.invalidList {
+    border-top: 4px solid #ffaf7e;
+}
+
+.missingList li, .invalidList li {
+    list-style:none;
+    font-style:italic;
+}

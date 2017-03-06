@@ -1,0 +1,22 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="newsblock">
+    <span class="contextheader"><b>${message:newsheader}</b></span>
+    <t:loop source="articles" value="article">
+        <dl class="news">
+            <dt>${date}</dt><dd>${text} <a href="#${article.UUID}">...</a></dd>
+        </dl>
+    </t:loop>
+    <t:black.ifadmin>
+        <t:black.dialog t:id="inviteDialog" title="${message:add-news}">
+            <table cellpadding="1" cellspacing="0" border="0" width="100%" style="border-style: none;">
+                <tr>
+                    <td width="30%" style="text-align:right;"><t:label for="title"/>:</td>
+                    <td style="text-align:left;"><t:textfield t:id="title" t:value="title" style="width:80%;" maxlength="50"/></td>
+                </tr>
+                <tr>
+                    <td width="30%" style="text-align:right;"><t:label for="text"/>:</td>
+                    <td style="text-align:left;"><t:textarea t:id="text" validate="required" t:value="newtext" style="width:80%; height: 30px;"/></td>
+                </tr>
+            </table>
+        </t:black.dialog>
+    </t:black.ifadmin>
+</div>

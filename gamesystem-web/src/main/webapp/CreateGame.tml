@@ -1,0 +1,22 @@
+<!-- $Id: CreateGame.tml 120 2009-09-25 14:36:00Z iskakoff $ -->
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+<form t:id="createGame">
+    <t:errors/>    
+    <fieldset>
+        <div>
+            <table cellpadding="1" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td width="50%"><t:label for="nameField"/>:</td>
+                    <td><t:textfield t:id="nameField" t:value="gameName" validate="required"/></td>
+                </tr>
+                <tr>
+                    <td width="50%"><t:label for="type"/>:</td>
+                    <td><t:select t:id="type"/></td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    <br/>
+    <input type="submit" value="${message:submit}"/>
+</form>
+</html>

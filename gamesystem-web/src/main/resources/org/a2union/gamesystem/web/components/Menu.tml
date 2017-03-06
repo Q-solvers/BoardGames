@@ -1,0 +1,10 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="menu">
+    <ul>
+        <li><t:custompagelink page="Index">${message:main-page}</t:custompagelink></li>
+        <li><t:custompagelink page="ViewDetail">${message:view-details-page}</t:custompagelink></li>
+        <t:black.ifadmin><li><t:custompagelink page="admin/Admin">${message:admin-page}</t:custompagelink></li></t:black.ifadmin>
+        <li><a href="http://forum.mind-games.ru" target="blank">${message:forum}</a></li>
+        <li><!-- t:actionlink t:id="logout">${message:logout}</t:actionlink--><a href="${logoutUrl}">${message:logout}</a></li>
+        <!-- <a href="${logoutUrl}">${message:logout}</a> -->
+    </ul>
+</div>

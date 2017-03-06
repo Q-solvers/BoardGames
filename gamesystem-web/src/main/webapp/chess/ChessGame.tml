@@ -1,0 +1,16 @@
+<!-- $Id: ChessGame.tml 182 2010-02-19 21:10:27Z iskakoff $ -->
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+<div id="pawnExchangeBlock" style="visibility:hidden;">
+    <div style="position: fixed; left: 0px; top: 0px; background-color: white; opacity:0.9; z-index: 32700;
+                width: 100%; height: 100%;">
+    </div>
+    <div style="position: fixed; left: 13%; top: 50%; width: 10%; height: auto; background-color: white;
+                 opacity: 1.0; z-index: 32750; padding: 15px; -moz-border-radius: 5px; border-radius: 10px; border: 2px solid gray; ">
+        <t:pawnExchange game="game"/>
+    </div>
+</div>
+<div id="chessBoardBlock" style="visibility:visible;">
+    <t:chess.chessboard game="game"/>
+</div>
+<div style="clear: both;"> </div>
+</html>

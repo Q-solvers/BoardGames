@@ -1,0 +1,21 @@
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <form t:id="passReminderForm">
+    <t:errors/>
+    <fieldset>
+        <div>
+            <table cellpadding="1" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td width="50%"><t:label for="passwordField"/>:</td>
+                    <td><input t:id="passwordField" t:value="password" validate="required" /></td>
+                </tr>
+                <tr>
+                    <td width="50%"><t:label for="passconfField"/>:</td>
+                    <td><input t:id="passconfField" t:value="passconf" validate="required"/></td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    <br/>
+    <input type="submit" value="${message:submit}"/>
+    </form>
+</html>

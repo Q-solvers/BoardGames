@@ -1,0 +1,138 @@
+.commonblack {
+    position: absolute; top: 0; background-color: #880000; width: 32px; height:32px;
+}
+.commonwhite {
+    position: absolute; top: 0; background-color: #ffffff; width: 32px; height:32px;
+}
+.commonboardline {
+    position:absolute; text-align:center;
+}
+.line1 {
+    top: 0px;
+}
+.line2 {
+    top: 32px;
+}
+.line3 {
+    top: 64px;
+}
+.line4 {
+    top: 96px;
+}
+.line5 {
+    top: 128px;
+}
+.line6 {
+    top: 160px;
+}
+.line7 {
+    top: 192px;
+}
+.line8 {
+    top: 224px;
+}
+.colname {
+    position: absolute; left: 256px; top: 0; width: 32px; height:32px;
+}
+.col1 {
+    left: 0px;
+}.col2 {
+    left: 32px;
+}.col3 {
+    left: 64px;
+}.col4 {
+    left: 96px;
+}.col5 {
+    left: 128px;
+}.col6 {
+    left: 160px;
+}.col7 {
+    left: 192px;
+}.col8 {
+    left: 224px;
+}
+.linenumber {
+    position:absolute; top: 256px; text-align:center;
+}
+.A {
+    left: 32px;
+}
+.B {
+    left: 64px;
+}
+.C {
+    left: 96px;
+}
+.D {
+    left: 128px;
+}
+.E {
+    left: 160px;
+}
+.F {
+    left: 192px;
+}
+.G {
+    left: 224px;
+}
+.H {
+    left: 256px;
+}
+.l1 {
+    top: 224px;
+}
+.l2 {
+    top: 192px;
+}
+.l3 {
+    top: 160px;
+}
+.l4 {
+    top: 128px;
+}
+.l5 {
+    top: 96px;
+}
+.l6 {
+    top: 64px;
+}
+.l7 {
+    top: 32px;
+}
+.l8 {
+    top: 0px;
+}
+.piece {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.killed {
+    display: none;
+    visibility:hidden;
+    left: 300px;
+}
+
+.btn {
+    position: relative;
+    float:left;
+    background-color: #880000;
+    border:  3px #ddaaaa solid;
+    padding: 2px;
+    margin: 2px;
+}
+
+.btn a {
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn a:hover {
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}

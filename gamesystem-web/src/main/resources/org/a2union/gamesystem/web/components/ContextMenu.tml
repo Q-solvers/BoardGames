@@ -1,0 +1,13 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" class="menu">
+    <ul>
+        <li><t:custompagelink page="Index">${message:games-page}</t:custompagelink></li>
+        <li><t:custompagelink page="Players">${message:players-page}</t:custompagelink></li>
+        <t:if test="invitesCount">
+            <li>
+                <t:pagelink page="index" context="3" style="font-size:10px;">
+                    ${message:new-invites}(${invitesCount})
+                </t:pagelink >
+            </li>
+        </t:if>
+    </ul>
+</div>

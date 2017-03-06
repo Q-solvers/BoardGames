@@ -1,0 +1,252 @@
+/* $Id: workbench.css 198 2010-09-28 05:36:09Z iskakoff $ */
+.activetab {
+    margin-right: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    border-top: gray solid thin;
+    border-left: gray solid thin;
+    border-right: gray solid thin;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.box {
+    position: relative;
+    float: left;
+    height: 180px;
+    padding-top: 26px;
+    padding-right: 67px;
+    font-size: 11px;
+}
+
+.clear {
+    clear: both;
+    font-size: 0px;
+    height: 0px;
+    border-bottom: 3px #880000 solid;
+}
+
+.contextheader {
+    text-align: center;
+}
+
+.error {
+    color: red;
+}
+
+.footer {
+    text-align: center;
+    font-size: 10px;
+}
+
+.footer a {
+    font-size: 10px;
+}
+
+.footer a:hover {
+    font-size: 10px;
+}
+
+.gamelist {
+/*border: 1px black solid;*/
+}
+
+.gamelist div {
+    width: 100%;
+}
+
+.gamelistheader {
+    width: 100%;
+    background-color: lightgray;
+    text-align: center;
+}
+
+.innerBox {
+    position: relative;
+    float: left;
+    border: 1px #cccccc solid;
+    width: 240px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.innerMenu {
+    position: relative;
+    float: left;
+    border: 1px #cccccc solid;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 240px;
+}
+
+.innerMenuShadow {
+    position: relative;
+    float: left;
+    width: 12px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.innerMenuDelemiter {
+    position: relative;
+    clear: left;
+    margin: 0;
+    padding: 0;
+    font-size: 0px;
+}
+
+.menu {
+    text-align: left;
+    padding-top: 5px;
+    font-size: 13px;
+}
+
+.menu ul {
+    list-style-type: none;
+}
+
+.news {
+    text-align: left;
+}
+
+.newsblock {
+    padding: 5px;
+}
+
+.newsblock a {
+    font-size: 12px;
+}
+
+.newsblock a:hover {
+    font-size: 12px;
+}
+
+.tab {
+    margin-right: 1px;
+    padding-right: 5px;
+    border-bottom: darkgray solid thin;
+}
+
+DIV.t-error {
+    color: Red;
+    border-bottom-color: Red;
+    border-bottom-style: solid;
+    margin: 0 30px;
+}
+
+.tap5c_fieldset {
+    width: 400px;
+}
+
+.tap5c_fieldset_content input {
+    width: 180px;
+}
+
+#body {
+    padding: 0;
+    margin: 0;
+    min-width: 1024px;
+}
+
+#content {
+    position: relative;
+    margin: 0 60px;
+    width: 700px;
+    height: 400px;
+    font-size: 15px;
+    padding: 20px 30px;
+}
+
+#div-gamehistory {
+    position: relative;
+    float: left;
+    width: 200px;
+    height: 350px;
+    overflow-y: auto;
+}
+
+#gameshistory th {
+    font-size: 10px;
+}
+
+#gameshistory td {
+    font-size: 10px;
+}
+
+#left {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    background: url( '../images/left.jpg' ) top left repeat-y;
+}
+
+#logo {
+    position: relative;
+    margin: 0 0px 0 0px;
+    padding-left: 90px;
+    padding-top: 60px;
+    padding-bottom: 0;
+    float: left;
+    border: 0px;
+}
+
+#menu {
+    position: relative;
+    float: right;
+    padding-top: 0px;
+    padding-right: 67px;
+    margin: 20px 0px 10px 0px;
+    font-size: 11px;
+}
+
+#register {
+    padding-left: 40px;
+}
+
+#right {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    background: url( '../images/right.jpg' ) top right repeat-y;
+    font-size: 0px;
+}
+
+a {
+    font-family: sans-serif, times;
+    font-size: 15px;
+    color: #8c0000;
+    text-decoration: underline;
+}
+
+a:hover {
+    font-family: sans-serif, times;
+    font-size: 15px;
+    color: #8c0000;
+    text-decoration: none;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif, times;
+    font-size: 15px;
+    color: #424242;
+    background-color: white;
+}
+
+img {
+    border: 0px none;
+}
+
+input.submit {
+    width: auto;
+}
+
+/*//ie fix*/
+/** html #body {*/
+/*width:expression((document.compatMode && document.compatMode == 'CSS1Compat') ? (document.documentElement.clientWidth < 1000 ? "1000px" : "100%") : (document.body.clientWidth < 1000 ? "1000px" : "100%"));*/
+/*}*/

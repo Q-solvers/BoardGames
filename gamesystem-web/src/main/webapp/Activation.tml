@@ -1,0 +1,7 @@
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+    <t:if test="success">${message:user-activated}<br/>
+        <t:parameter name="else">
+            <font color="red">${message:activation-error}</font><br/>
+        </t:parameter>
+    </t:if>
+</html>

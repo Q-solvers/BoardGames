@@ -1,0 +1,34 @@
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+<t:black.ifadmin>
+    <div>
+        <div class="tab" style="float: left;">
+            <t:if test="b1">
+                <span><img src="${users_tab_active}"/></span>
+                <p:else>
+                    <t:pagelink t:id="activeGame" page="admin/Admin" context="0"><img src="${users_tab}"/></t:pagelink>
+                </p:else>
+            </t:if>
+        </div>
+        <div class="tab" style="float: left;">
+            <t:if test="b2">
+                <img src="${tournaments_tab_active}"/>
+                <p:else>
+                    <t:pagelink t:id="openGame" page="admin/Admin" context="1"><img src="${tournaments_tab}"/></t:pagelink>
+                </p:else>
+            </t:if>
+        </div>
+    </div>
+
+    <t:delegate to="activeBlock"/>
+    <t:block t:id="usersBlock">
+        
+    </t:block>
+
+    <t:block t:id="tournamentsBlock">
+        
+    </t:block>
+    <p:else>
+        <span>Permition denied</span>
+    </p:else>
+</t:black.ifadmin>
+</html>

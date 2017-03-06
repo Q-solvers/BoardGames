@@ -1,0 +1,18 @@
+.loginform TD {
+    padding-bottom: 4px;
+    padding-left: 10px;
+    text-align: center;
+    width: 150px;
+}
+
+div .loginform {
+    text-align: center;
+}
+
+.loginform input {
+    width: 150px;
+}
+
+.loginform th {
+    text-align: right;
+}
